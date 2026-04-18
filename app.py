@@ -4,7 +4,7 @@ import plotly.express as px
 
 dataformat = pd.read_csv("formatted.csv")
 
-dataformat["date"] = pd.to_datetime(df["date"])
+dataformat["date"] = pd.to_datetime(dataformat["date"])
 dataformat = dataformat.sort_values("date")
 
 
@@ -23,7 +23,7 @@ fig = px.line(
 app = Dash(__name__)
 
 app.layout = html.Div([
-    html.H1("Soul Foods Pink Morsel Sales Visualiser"),
+    html.H1("Pink Morsel Sales Visualiser"),
     dcc.Graph(figure=fig)
 ])
 
