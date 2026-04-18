@@ -21,9 +21,9 @@ app.layout = html.Div(
         "fontFamily": "Arial, sans-serif"
     },
     children=[
-
         html.H1(
             "Pink Morsel Sales Visualiser",
+            id="app-header",
             style={
                 "textAlign": "center",
                 "color": "#222",
@@ -41,7 +41,6 @@ app.layout = html.Div(
                 "boxShadow": "0 4px 12px rgba(0,0,0,0.1)"
             },
             children=[
-
                 html.H3(
                     "Filter by Region",
                     style={
@@ -78,25 +77,18 @@ app.layout = html.Div(
     ]
 )
 
-
 @app.callback(
     Output("sales-chart", "figure"),
     Input("region-filter", "value")
 )
 def update_chart(selected_region):
-
-    
     if selected_region == "all":
         filtered = dataformat
     else:
-        filtered = dataformat[
-            dataformat["region"].str.lower() == selected_region
-        ]
+        filtered = dataformat[dataformat["region"].str.lower() == selected_region]
 
-   
     daily_sales = filtered.groupby("date", as_index=False)["sales"].sum()
 
-    
     fig = px.line(
         daily_sales,
         x="date",
@@ -105,7 +97,6 @@ def update_chart(selected_region):
         labels={"date": "Date", "sales": "Sales"}
     )
 
-    
     fig.update_layout(
         plot_bgcolor="white",
         paper_bgcolor="white",
@@ -113,8 +104,6 @@ def update_chart(selected_region):
     )
 
     return fig
-
-
 
 if __name__ == "__main__":
     app.run(debug=True)
